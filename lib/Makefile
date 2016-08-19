@@ -129,7 +129,7 @@ gb.lib:
 	for i in $(OBJS); do echo $$i >> gb.lib; done
 
 %.s: %.ms
-	maccer -o $@ $<
+	../bin/maccer/maccer -o $@ $<
 
 %.o:	%.c
 	$(CC) -c -o $@ $<
