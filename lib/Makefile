@@ -1,6 +1,6 @@
 # Automagically generated Makefile
 
-CC = ../bin/lcc -Wa-l
+CC = clang -Wall
 
 PRECOMPILE = \
    floor.s  \
@@ -121,15 +121,15 @@ prep-dist: clean gb.lib $(PRECOMPILE) make.bat
 
 make.bat: clean
 	echo "REM Generated from Makefile using 'make make.bat'" >> make.bat
-	for i in *.s; do echo ..\\bin\\lcc -c -o `basename $$i .s`.o $$i >> make.bat; done 
-	for i in *.c; do echo ..\\bin\\lcc -c -o `basename $$i .c`.o $$i >> make.bat; done 
+	for i in *.s; do echo clang -c -o `basename $$i .s`.o $$i >> make.bat; done
+	for i in *.c; do echo clang -c -o `basename $$i .c`.o $$i >> make.bat; done
 
 gb.lib: 
 	rm -f gb.lib
 	for i in $(OBJS); do echo $$i >> gb.lib; done
 
 %.s: %.ms
-	maccer -o $@ $<
+	../bin/maccer/maccer -o $@ $<
 
 %.o:	%.c
 	$(CC) -c -o $@ $<
